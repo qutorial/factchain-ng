@@ -20,19 +20,34 @@ export class VoteComponent {
     }
 
     voteUp(){
-      this.voted = true;
-      this.newsItem.votes += 1;
-      this.voteService.voteUp(this.newsItem.newsItemId);
+      this.voteService.voteUp(this.newsItem.newsItemId).toPromise()
+      .then(() => {
+        this.newsItem.votes += 1;
+      }).catch((error) => {
+        if(error == 'Server error'){
+            console.log("Could not connect to REST server. Please check your configuration details");
+        }
+        else{
+            console.log("error when voting", error);
+        }
+    });
     }
 
     voteDown(){
-      this.voted = true;
-      this.newsItem.votes += -1;
-      this.voteService.voteDown(this.newsItem.newsItemId);
+      if (this.newsItem.voters[0] +"" === "resource:org.acme.sample.NewsItem#1") {
+       console.log("Already voted");
+      }
+      this.voteService.voteDown(this.newsItem.newsItemId).toPromise()
+      .then(() => {
+        this.newsItem.votes += -1;
+      }).catch((error) => {
+        if(error == 'Server error'){
+            console.log("Could not connect to REST server. Please check your configuration details");
+        }
+        else{
+            console.log("Error when voting", error);
+        }
+    });
     }
-
-
-
-
-   
+  
 }

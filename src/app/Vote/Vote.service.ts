@@ -28,24 +28,21 @@ export class VoteService {
 
     public vote(id: any, score: number): Observable<VoteTransaction> {
      
+      var asset = 
+      {
+        "$class": "org.acme.sample.VoteTransaction",
+        "newsItem": "resource:org.acme.sample.NewsItem#" + id,
+        "origin": "resource:org.acme.sample.NewsAgency#1",
+        "score": score,
+        "timestamp": new Date()
+      }
 
-      var itemToAdd : VoteTransaction = new VoteTransaction();
-      
-      var newsItem : NewsItem = new NewsItem();
-      newsItem.newsItemId = id;
-
-      var agency :NewsAgency = new NewsAgency();
-      agency.agencyId = "1";
-      
-      itemToAdd.newsItem = newsItem;
-      itemToAdd.origin = agency;
-      itemToAdd.score = score;
-      itemToAdd.timestamp = new Date();
-
-      return this.dataService.add(this.NAMESPACE, itemToAdd);
+      return this.addAsset(asset);
     }
 
-    
+    public addAsset(itemToAdd: any): Observable<VoteTransaction> {
+      return this.dataService.add(this.NAMESPACE, itemToAdd);
+    }
 
 
 }

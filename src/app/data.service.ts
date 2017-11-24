@@ -37,6 +37,7 @@ export class DataService<Type> {
         console.log('Entered DataService add');
         console.log('Add ' + ns);
         console.log('asset', asset);
+        console.log('posting to url', this.actionUrl + ns);
 
         return this.http.post(this.actionUrl + ns, asset)
           .map(this.extractData)

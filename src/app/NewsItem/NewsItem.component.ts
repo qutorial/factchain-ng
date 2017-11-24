@@ -67,7 +67,11 @@ export class NewsItemComponent implements OnInit {
 			this.errorMessage = null;
       result.forEach(asset => {
         tempList.push(asset);
+        var id = + asset.newsItemId.substring("resource:org.acme.sample.NewsItem#".length);
         this.nextId += 1;
+        if (this.nextId <= id) {
+          this.nextId = id + 1;
+        }
       });
       this.allAssets = tempList;
     })
@@ -110,11 +114,12 @@ export class NewsItemComponent implements OnInit {
   }
 
   addAsset(form: any): Promise<any> {
+    this.nextId += 1;
     this.asset = {
       $class: "org.acme.sample.NewsItem",
       
         
-          "newsItemId": this.nextId,
+          "newsItemId": this.nextId++,
         
       
         
@@ -135,6 +140,10 @@ export class NewsItemComponent implements OnInit {
       
         
           "contentHash": this.contentHash.value,
+
+          "references": [],
+
+          "voters": [],
         
       
         
@@ -162,6 +171,8 @@ export class NewsItemComponent implements OnInit {
     return this.serviceNewsItem.addAsset(this.asset)
     .toPromise()
     .then(() => {
+      this.allAssets.push(this.asset);
+      this.nextId += 1;
 			this.errorMessage = null;
       this.myForm.setValue({
       
