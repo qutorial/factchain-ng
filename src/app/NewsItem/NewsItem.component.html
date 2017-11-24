@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="addAssetModalLabel">Add Asset</h4>
+        <h4 class="modal-title" id="addAssetModalLabel">Add News</h4>
       </div>
       <form [formGroup]="myForm">
         <div class="modal-body">
@@ -219,10 +219,10 @@
 	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
 		<strong>Error:</strong> {{errorMessage}}
 	</div>
-  <h1 id='assetName'>NewsItem</h1>
+  <h3 id='assetName'>Recent news:</h3>
   <div class="row">
     <div class="col-md-12 text-right">
-      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal">Add Asset</button>
+      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal">Report News</button>
     </div>
   </div>
   <br>
@@ -231,47 +231,33 @@
       <table class="table table-bordered table-responsive table-striped">
         <thead class="thead">
           <tr class="thead-cols">
+
+                <th class="info">Author</th>
             
-                <th class="info">newsItemId</th>
+                <th class="info">Title</th>
             
-                <th class="info">author</th>
+                <th class="info">Date</th>
+
+                <th class="info">Rating</th>
             
-                <th class="info">title</th>
+                <th class="info">Link</th>
             
-                <th class="info">votes</th>
-            
-                <th class="info">contentUrl</th>
-            
-                <th class="info">contentHash</th>
-            
-                <th class="info">timestamp</th>
-            
-              <th class="info">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let asset of allAssets">
 
             
-                <td>{{asset.newsItemId}}</td>
-            
-                <td>{{asset.author}}</td>
+                <td>{{asset.author === "resource:org.acme.sample.NewsAgency#1" ? "Bloomberg" : "Bild"}}</td>
             
                 <td>{{asset.title}}</td>
-            
-                <td>{{asset.votes}}</td>
-            
-                <td>{{asset.contentUrl}}</td>
-            
-                <td>{{asset.contentHash}}</td>
-            
-                <td>{{asset.timestamp}}</td>
-            
-            <td>
-              <button (click)="getForm(asset.newsItemId);" type="button" class="btn btn-success" data-toggle="modal" data-target="#updateAssetModal">Update Asset</button>
 
-              <button (click)="setId(asset.newsItemId);" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAssetModal">Delete Asset</button>
-            </td>
+                <td class="col-md-1">{{asset.timestamp | date:'fullDate'}}</td>
+            
+                <td><span ngClass="{{asset.votes >=0 ? 'green': 'red'}}">{{asset.votes}}</span></td>
+            
+                <td><a href="http://{{asset.contentUrl}}/" target="_blank">{{asset.contentUrl}}</a></td>
+  
           </tr>
         </tbody>
       </table>
