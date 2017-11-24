@@ -1,0 +1,7 @@
+<div class="voting">
+<img *ngIf="!voted" class="vote" src="/assets/up.png" (click)="voteUp()">
+
+<span ngClass="{{newsItem.votes >=0 ? 'green': 'red'}}">{{newsItem.votes}}</span> 
+
+<img  *ngIf="!voted" class="vote" src="/assets/down.png" (click)="voteDown()">
+</div>

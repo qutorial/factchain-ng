@@ -1,3 +1,5 @@
+import { VoteService } from './Vote/Vote.service';
+import { VoteComponent } from './Vote/Vote.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -19,7 +21,8 @@ import { ProfileComponent } from './Profile/Profile.component';
     // TransactionComponent,
     
     NewsItemComponent,
-    ProfileComponent
+    ProfileComponent,
+    VoteComponent
 		
   ],
   imports: [
@@ -31,7 +34,8 @@ import { ProfileComponent } from './Profile/Profile.component';
   ],
   providers: [
     Configuration,
-    DataService
+    DataService,
+    VoteService
   ],
   bootstrap: [AppComponent]
 })

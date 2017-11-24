@@ -21,6 +21,10 @@ export class NewsItemService {
         return this.dataService.getAll(this.NAMESPACE);
     }
 
+    public getCount(): Observable<number>{
+      return this.dataService.getAll(this.NAMESPACE).count();
+    }
+
     public getAsset(id: any): Observable<NewsItem> {
       return this.dataService.getSingle(this.NAMESPACE, id);
     }

@@ -17,57 +17,30 @@ export class NewsItemComponent implements OnInit {
   private allAssets;
   private asset;
   private currentId;
-	private errorMessage;
+  private errorMessage;
+  private nextId: number;
 
   
       
-          newsItemId = new FormControl("", Validators.required);
-        
-  
-      
-          author = new FormControl("", Validators.required);
-        
-  
-      
           title = new FormControl("", Validators.required);
-        
-  
-      
-          votes = new FormControl("", Validators.required);
-        
-  
-      
+
           contentUrl = new FormControl("", Validators.required);
         
   
       
           contentHash = new FormControl("", Validators.required);
         
-  
-      
-          timestamp = new FormControl("", Validators.required);
+
         
   
 
 
   constructor(private serviceNewsItem:NewsItemService, fb: FormBuilder) {
+    this.nextId = 1;
     this.myForm = fb.group({
     
         
-          newsItemId:this.newsItemId,
-        
-    
-        
-          author:this.author,
-        
-    
-        
           title:this.title,
-        
-    
-        
-          votes:this.votes,
-        
     
         
           contentUrl:this.contentUrl,
@@ -76,9 +49,7 @@ export class NewsItemComponent implements OnInit {
         
           contentHash:this.contentHash,
         
-    
-        
-          timestamp:this.timestamp
+
         
     
     });
@@ -96,6 +67,7 @@ export class NewsItemComponent implements OnInit {
 			this.errorMessage = null;
       result.forEach(asset => {
         tempList.push(asset);
+        this.nextId += 1;
       });
       this.allAssets = tempList;
     })
@@ -142,11 +114,11 @@ export class NewsItemComponent implements OnInit {
       $class: "org.acme.sample.NewsItem",
       
         
-          "newsItemId":this.newsItemId.value,
+          "newsItemId": this.nextId,
         
       
         
-          "author":this.author.value,
+          "author": "resource:org.acme.sample.NewsAgency#1",
         
       
         
@@ -154,19 +126,19 @@ export class NewsItemComponent implements OnInit {
         
       
         
-          "votes":this.votes.value,
+          "votes": 0,
         
       
         
-          "contentUrl":this.contentUrl.value,
+          "contentUrl": this.contentUrl.value,
         
       
         
-          "contentHash":this.contentHash.value,
+          "contentHash": this.contentHash.value,
         
       
         
-          "timestamp":this.timestamp.value
+          "timestamp": "2017-11-25T15:39:02.283Z"
         
       
     };
@@ -174,19 +146,7 @@ export class NewsItemComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "newsItemId":null,
-        
-      
-        
-          "author":null,
-        
-      
-        
           "title":null,
-        
-      
-        
-          "votes":null,
         
       
         
@@ -194,11 +154,7 @@ export class NewsItemComponent implements OnInit {
         
       
         
-          "contentHash":null,
-        
-      
-        
-          "timestamp":null
+          "contentHash":null
         
       
     });
@@ -210,19 +166,10 @@ export class NewsItemComponent implements OnInit {
       this.myForm.setValue({
       
         
-          "newsItemId":null,
-        
       
-        
-          "author":null,
-        
-      
-        
           "title":null,
         
       
-        
-          "votes":null,
         
       
         
@@ -232,9 +179,6 @@ export class NewsItemComponent implements OnInit {
         
           "contentHash":null,
         
-      
-        
-          "timestamp":null 
         
       
       });
@@ -250,227 +194,12 @@ export class NewsItemComponent implements OnInit {
   }
 
 
-   updateAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: "org.acme.sample.NewsItem",
-      
-        
-          
-        
-    
-        
-          
-            "author":this.author.value,
-          
-        
-    
-        
-          
-            "title":this.title.value,
-          
-        
-    
-        
-          
-            "votes":this.votes.value,
-          
-        
-    
-        
-          
-            "contentUrl":this.contentUrl.value,
-          
-        
-    
-        
-          
-            "contentHash":this.contentHash.value,
-          
-        
-    
-        
-          
-            "timestamp":this.timestamp.value
-          
-        
-    
-    };
-
-    return this.serviceNewsItem.updateAsset(form.get("newsItemId").value,this.asset)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-            else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
-    });
-  }
-
-
-  deleteAsset(): Promise<any> {
-
-    return this.serviceNewsItem.deleteAsset(this.currentId)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-			else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
-    });
-  }
-
-  setId(id: any): void{
-    this.currentId = id;
-  }
-
-  getForm(id: any): Promise<any>{
-
-    return this.serviceNewsItem.getAsset(id)
-    .toPromise()
-    .then((result) => {
-			this.errorMessage = null;
-      let formObject = {
-        
-          
-            "newsItemId":null,
-          
-        
-          
-            "author":null,
-          
-        
-          
-            "title":null,
-          
-        
-          
-            "votes":null,
-          
-        
-          
-            "contentUrl":null,
-          
-        
-          
-            "contentHash":null,
-          
-        
-          
-            "timestamp":null 
-          
-        
-      };
-
-
-
-      
-        if(result.newsItemId){
-          
-            formObject.newsItemId = result.newsItemId;
-          
-        }else{
-          formObject.newsItemId = null;
-        }
-      
-        if(result.author){
-          
-            formObject.author = result.author;
-          
-        }else{
-          formObject.author = null;
-        }
-      
-        if(result.title){
-          
-            formObject.title = result.title;
-          
-        }else{
-          formObject.title = null;
-        }
-      
-        if(result.votes){
-          
-            formObject.votes = result.votes;
-          
-        }else{
-          formObject.votes = null;
-        }
-      
-        if(result.contentUrl){
-          
-            formObject.contentUrl = result.contentUrl;
-          
-        }else{
-          formObject.contentUrl = null;
-        }
-      
-        if(result.contentHash){
-          
-            formObject.contentHash = result.contentHash;
-          
-        }else{
-          formObject.contentHash = null;
-        }
-      
-        if(result.timestamp){
-          
-            formObject.timestamp = result.timestamp;
-          
-        }else{
-          formObject.timestamp = null;
-        }
-      
-
-      this.myForm.setValue(formObject);
-
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
-    });
-
-  }
 
   resetForm(): void{
     this.myForm.setValue({
       
         
-          "newsItemId":null,
-        
-      
-        
-          "author":null,
-        
-      
-        
           "title":null,
-        
-      
-        
-          "votes":null,
         
       
         
@@ -479,10 +208,6 @@ export class NewsItemComponent implements OnInit {
       
         
           "contentHash":null,
-        
-      
-        
-          "timestamp":null 
         
       
       });

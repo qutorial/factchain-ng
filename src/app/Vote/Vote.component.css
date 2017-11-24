@@ -1,0 +1,17 @@
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+
+img.vote {
+  height: 16px;
+  margin: 10px;
+}
+
+.voting {
+    margin: auto;
+    display: block;
+    width: 120px;
+}
