@@ -1,0 +1,24 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">The Fact Chain</a>
+      <a class='navbar-brand'>Fighting for Truth and Democracy</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li class=""><a [routerLink]="['/news']">News</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Bloomberg
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+          <li><a [routerLink]="['/profile']">Profile</a></li>
+        
+          <li><a [routerLink]="['/logout']">Logout</a></li>
+          
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
