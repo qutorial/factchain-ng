@@ -22,3 +22,7 @@
 .headline {
     background: white!important;
 }
+
+.linkdiv img {
+  width: 100%;
+}
