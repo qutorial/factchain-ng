@@ -1,0 +1,24 @@
+.allmeta{
+    display: block;
+/*    height: 100px;
+    margin-top: -100px;
+*/
+
+    color: black!important;
+    margin-left: 20px;
+    margin-right: 20px;
+    background: white!important;
+
+    text-decoration: none!important;
+
+}
+
+.news, .news:hover, span, span:hover, div, div:hover{
+    text-decoration: none!important;
+}
+
+
+
+.headline {
+    background: white!important;
+}

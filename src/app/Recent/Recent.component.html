@@ -13,20 +13,34 @@
   <div class="row">
     <div class="col-md-12">
       
-          <tr *ngFor="let asset of allAssets">
+          <div class="news" *ngFor="let asset of allAssets">
+              <a href="http://{{asset.contentUrl}}/" target="_blank"> 
+                <div class='linkdiv'>
 
-            
-                <td>{{asset.author === "resource:org.acme.sample.NewsAgency#1" ? "Bloomberg" : "Bild"}}</td>
-            
-                <td>{{asset.title}}</td>
+                  <img *ngIf="asset.title.indexOf('Merkel') !== -1" [src]="'assets/merkel.png'" class='img-thumbnail img-responsive'/>
+                  <img *ngIf="asset.title.indexOf('Apple') !== -1" [src]="'assets/apple.jpg'" class='img-thumbnail img-responsive'/>
+                  <img *ngIf="asset.title.indexOf('iPhone') !== -1" [src]="'assets/iphone.jpg'" class='img-thumbnail img-responsive'/>
+                  <img *ngIf="asset.title.indexOf('Trump') !== -1" [src]="'assets/trump.jpg'" class='img-thumbnail img-responsive'/>
+                  
+                  
+                  <div class='allmeta'>
+                    <div class="headline">
+                      <span class="author">{{asset.author === "resource:org.acme.sample.NewsAgency#1" ? "Bloomberg" : (asset.author === "resource:org.acme.sample.NewsAgency#2" ? "Bild": "Fox")}}</span>:
+                      <span class="title">{{asset.title}}</span>
+                    </div>
 
-                <td class="col-md-1">{{asset.timestamp | date:'fullDate'}}</td>
+                    <div class="meta">
+                      <span>{{asset.timestamp | date:'fullDate'}}</span>                
+                        <span><app-Vote [newsItem]="asset"></app-Vote></span>
+                    </div>
+                  </div>
+                </div>
             
-                <td><app-Vote [newsItem]="asset"></app-Vote></td>
-            
-                <td><a href="http://{{asset.contentUrl}}/" target="_blank">{{asset.contentUrl}}</a></td>
+            </a> 
+
+            <div class="mt-2"><hr></div>
   
-          </tr>
+          </div>
        
     </div>
   </div>
