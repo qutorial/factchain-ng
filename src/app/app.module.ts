@@ -1,3 +1,4 @@
+import { RecentComponent } from './Recent/Recent.component';
 import { VoteService } from './Vote/Vote.service';
 import { VoteComponent } from './Vote/Vote.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 
 import { NewsItemComponent } from './NewsItem/NewsItem.component';
 import { ProfileComponent } from './Profile/Profile.component';
+import { RecentService } from 'app/Recent/Recent.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { ProfileComponent } from './Profile/Profile.component';
     
     NewsItemComponent,
     ProfileComponent,
-    VoteComponent
+    VoteComponent,
+    RecentComponent
 		
   ],
   imports: [
@@ -35,7 +38,8 @@ import { ProfileComponent } from './Profile/Profile.component';
   providers: [
     Configuration,
     DataService,
-    VoteService
+    VoteService,
+    RecentService
   ],
   bootstrap: [AppComponent]
 })

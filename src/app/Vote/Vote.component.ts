@@ -10,24 +10,40 @@ import 'rxjs/add/operator/toPromise';
 	styleUrls: ['./Vote.component.css'],
   providers: []
 })
-export class VoteComponent {
+export class VoteComponent  implements OnInit  {
     @Input() newsItem: NewsItem;
 
     private voted;
+    private error;
+
+    ngOnInit(): void {
+        
+        if ( this.newsItem.author + "" === "resource:org.acme.sample.NewsAgency#1" ) {
+            this.voted = true;
+        };
+    }
+
 
     constructor(private voteService:VoteService){
         this.voted = false;
+        this.error = false;
+        if ( this.newsItem && this.newsItem.author.name === "Bloomberg" ) {
+            this.voted = true;
+        };
     }
 
     voteUp(){
       this.voteService.voteUp(this.newsItem.newsItemId).toPromise()
       .then(() => {
         this.newsItem.votes += 1;
+        this.voted = true;
       }).catch((error) => {
         if(error == 'Server error'){
             console.log("Could not connect to REST server. Please check your configuration details");
         }
         else{
+            this.voted = true;
+            this.error = true;
             console.log("error when voting", error);
         }
     });
@@ -40,11 +56,14 @@ export class VoteComponent {
       this.voteService.voteDown(this.newsItem.newsItemId).toPromise()
       .then(() => {
         this.newsItem.votes += -1;
+        this.voted = true;
       }).catch((error) => {
         if(error == 'Server error'){
             console.log("Could not connect to REST server. Please check your configuration details");
         }
         else{
+            this.voted = true;
+            this.error = true;
             console.log("Error when voting", error);
         }
     });

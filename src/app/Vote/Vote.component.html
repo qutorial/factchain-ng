@@ -1,7 +1,8 @@
 <div class="voting">
-<img *ngIf="!voted" class="vote" src="/assets/up.png" (click)="voteUp()">
+<img class="vote" [src]=" voted ? '/assets/up-deact.png' : '/assets/up.png' " (click)="voteUp()">
 
 <span ngClass="{{newsItem.votes >=0 ? 'green': 'red'}}">{{newsItem.votes}}</span> 
 
-<img  *ngIf="!voted" class="vote" src="/assets/down.png" (click)="voteDown()">
+<img  class="vote" [src]=" voted ? '/assets/down-deact.png' : '/assets/down.png' " (click)="voteDown()">
 </div>
+<div *ngIf="error" class="error"> - voted here already</div>

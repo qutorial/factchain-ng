@@ -15,3 +15,11 @@ img.vote {
     display: block;
     width: 120px;
 }
+
+.error {
+    background: lightgray;
+    border: darkgray 1px solid;
+    padding: 5px;
+    border-radius: 5px;
+    color: darkred;
+}

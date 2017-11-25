@@ -53,28 +53,28 @@
 	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
 		<strong>Error:</strong> {{errorMessage}}
 	</div>
-  <h3 id='assetName'>Recent news:</h3>
+  <h3 id='assetName'>Manage the votes here</h3>
   <div class="row">
     <div class="col-md-12 text-right">
-      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal">Report News</button>
+      <button (click)="resetForm()" type="button" class="btn btn-success" data-toggle="modal" data-target="#addAssetModal"> + Report News</button>
     </div>
   </div>
   <br>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-bordered table-responsive table-striped">
+      <table class="table table-striped">
         <thead class="thead">
           <tr class="thead-cols">
 
-                <th class="info">Author</th>
+                <th class="">Author</th>
             
-                <th class="info">Title</th>
+                <th class="">Title</th>
             
-                <th class="info">Date</th>
+                <th class="">Date</th>
 
-                <th class="info">Rating</th>
+                <th class="">Rating</th>
             
-                <th class="info">Link</th>
+                <th class="">Link</th>
             
           </tr>
         </thead>
